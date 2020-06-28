@@ -6,10 +6,10 @@ import Navbar from "./components/navbar";
 class App extends Component {
   state = {
     counters: [
-      { id: 1, value: 0 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 0 },
+      { id: 1, value: 0, heart: "fa fa-heart fa-1x" },
+      { id: 2, value: 0, heart: "fa fa-heart fa-1x" },
+      { id: 3, value: 0, heart: "fa fa-heart fa-1x" },
+      { id: 4, value: 0, heart: "fa fa-heart fa-1x" },
     ],
   };
   
@@ -67,9 +67,27 @@ class App extends Component {
     this.setState({counters});
   }
 
+  handleSwitchHearts = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = {...counter};
+    console.log(counters[index].heart)
+    if (!counters[index].heart.localeCompare("fa fa-heart fa-1x")) {
+      console.log("HEart is filled")
+      counters[index].heart = "fa fa-heart-o fa-1x";
+    }
+    else {
+      console.log("HEart is empty")
+      counters[index].heart = "fa fa-heart fa-1x";
+    }
+    console.log("Switch hearts.")
+    this.setState({counters});
+  }
+
   render() {
     console.log(this.props);
     console.log("App - rendered");
+    console.log(this.state.counters[0].heart)
     return (
       <>
         <Navbar totalCounters={this.state.counters.filter((c) => c.value > 0).length}
@@ -79,10 +97,12 @@ class App extends Component {
             key={counter.id}
             counter={counter}
             id={counter.id}
+            heart={counter.heart}
             onDelete={this.handleDelete}
             onDecrement={this.handleDecrement}
             onIncrement={this.handleIncrement}
             onReset={this.handleReset}
+            switchHearts={this.handleSwitchHearts}
           />
         ))}
       <button

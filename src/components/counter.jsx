@@ -19,6 +19,7 @@ class Counter extends Component {
     else {
       disabled = true;
     }
+
     console.log("Counter - rendered");
     return (
       <>
@@ -41,8 +42,6 @@ class Counter extends Component {
             >
               -
             </button>
-
-
             <button
               className="btn btn-danger btn-sm mr-2"
               onClick={() => this.props.onDelete(this.props.counter.id)}
@@ -55,7 +54,9 @@ class Counter extends Component {
                 >
                 Reset
             </button>
-            <i className="fa fa-heart fa-2x" aria-hidden="true"></i>
+            <i className={this.props.counter.heart} aria-hidden="true"
+              onClick={() => this.props.switchHearts(this.props.counter)}>
+            </i>
           </div>
         </div>
       </ul>
@@ -81,3 +82,4 @@ class Counter extends Component {
 }
 
 export default Counter;
+
